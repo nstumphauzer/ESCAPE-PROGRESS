@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Launch Date</title>
+    <style>
+        :root {
+            --background-color: black;
+            --text-color: #ffffff; /* Text color */
+            --primary-color: #00b7ff; /* Neon blue */
+            --secondary-color: #ccc;
+            --red-color: rgb(255, 255, 255);
+            --glow-color: #00bbff; /* Neon blue for glow */
+            --glow-strength: 0 0 2px; /* Glow strength */
+        }
+    
+        body {
+            font-family: 'DS-Digital', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-shadow: var(--text-color) var(--glow-strength); /* Glow effect using text color */
+        }
+    
+        .container, .task-container {
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 600px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    
+        .task-container {
+            height: 442px;
+            overflow-y: auto;
+        }
+    
+        .progress-container, .launch-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    
+        .progress-bar {
+            background-color: var(--secondary-color);
+            border-radius: 5px;
+            height: 20px;
+            margin: 10px 0;
+            flex-grow: 1;
+            position: relative;
+        }
+    
+        .progress {
+            background-color: var(--primary-color);
+            height: 100%;
+            width: 0;
+            border-radius: 5px;
+            box-shadow: var(--glow-color) var(--glow-strength); /* Neon glow effect */
+        }
+    
+        .percent-text {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    
+        ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+    
+        li {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+        }
+    
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 3px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    
+        .checkbox.checked {
+            background-color: #fff;
+        }
+    
+        input[type="text"], input[type="number"] {
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+    
+        input[type="text"] {
+            flex-grow: 1;
+            width: 100%;
+        }
+    
+        input[type="number"] {
+            width: 25%;
+        }
+    
+        .instruction-text {
+            color: var(--secondary-color);
+            font-size: 0.8em;
+        }
+    
+        .launch-text {
+            font-size: 1.5em;
+        }
+    
+        .estimated-launch-date, #days-until-launch {
+            color: var(--red-color);
+        }
+    
+        #logo {
+            position: fixed;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            max-width: 150px;
+            height: auto;
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <div class="launch-info">
+            <p class="launch-text estimated-launch-text">
+                Estimated Launch Date:
+                <span class="estimated-launch-date" id="estimated-launch-date">-</span>
+            </p>
+        </div>
+        <div class="launch-info">
+            <p class="launch-text days-until-launch-text">
+                Days Until Launch (8hr days):
+                <span id="days-until-launch">-</span>
+            </p>
+        </div>
+        <div class="progress-container">
+            <span class="percent-text" id="percent-text">0%</span>
+            <div class="progress-bar" id="progress-container">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-container">
+        <ul id="task-list" class="task-list">
+            <!-- Task items will be added dynamically here -->
+        </ul>
+        <div>
+            <input type="text" id="task-input" placeholder="Add a new task" onkeyup="addTaskOnEnter(event)">
+            <input type="number" id="estimated-hours" placeholder="Est. Hours" onkeyup="addTaskOnEnter(event)">
+            <p class="instruction-text">Press Enter to add task</p>
+        </div>
+    </div>
+
+    <img src="retvrn inc grey.png" alt="Retvrn Inc Logo" id="logo">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DS-Digital">
+    <script>
+        let totalHours = 0;
+        let completedHours = 0;
+
+        function addTask() {
+            const taskName = document.getElementById('task-input').value;
+            const estimatedHours = document.getElementById('estimated-hours').valueAsNumber;
+
+            if (taskName && !isNaN(estimatedHours) && estimatedHours > 0) {
+                const taskList = document.getElementById('task-list');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span class="checkbox" onclick="toggleTaskCompletion(this, ${estimatedHours})"></span>
+                    ${taskName} (${estimatedHours} hours)
+                `;
+                taskList.appendChild(listItem);
+
+                totalHours += estimatedHours;
+                updateProgress();
+                document.getElementById('task-input').value = '';
+                document.getElementById('estimated-hours').value = '';
+                document.getElementById('task-input').focus();
+            }
+        }
+
+        function toggleTaskCompletion(checkbox, hours) {
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                completedHours -= hours;
+            } else {
+                checkbox.classList.add('checked');
+                completedHours += hours;
+            }
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progressPercent = Math.min(Math.round((completedHours / totalHours) * 100), 100);
+            document.getElementById('progress').style.width = progressPercent + '%';
+            document.getElementById('percent-text').textContent = progressPercent + '%';
+
+            const daysUntilLaunch = Math.ceil((totalHours - completedHours) / 8); // Updated to 8 hours per day
+            document.getElementById('days-until-launch').textContent = daysUntilLaunch;
+
+            const launchDate = new Date();
+            launchDate.setDate(launchDate.getDate() + daysUntilLaunch);
+            document.getElementById('estimated-launch-date').textContent = launchDate.toDateString();
+        }
+
+        function addTaskOnEnter(event) {
+            if (event.key === 'Enter') {
+                addTask();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('task-input').focus();
+        });
+    </script>
+</body>
+</html>
