@@ -134,12 +134,26 @@
             transform: translateX(-50%);
             max-width: 150px;
             height: auto;
-            transition: filter 0.3s ease; /* Smooth transition for the filter effect */
-            filter: brightness(235%); /* Increase brightness by 35% on hover */
+            #logo {
+            transition: filter 0.3s ease;
+        }
+
+        #logo:hover {
+            filter: brightness(135%);
+        }
+        .logo-link {
+            text-decoration: none; /* Removes underline */
+        }
+        .logo-link img {
+            border: 0; /* Removes border around clickable images in some browsers */
+        }
 }
     </style>    
 </head>
 <body>
+    <a href="https://www.retvrn.world" class="logo-link" target="_blank">
+        <img src="nickstumphauzer_1/Desktop/ESCAPE-PROGRESS/retvrn inc grey.png" alt="Logo">
+    </a>
     <div class="container">
         <div class="launch-info">
             <p class="launch-text estimated-launch-text">
