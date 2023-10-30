@@ -134,26 +134,15 @@
             transform: translateX(-50%);
             max-width: 150px;
             height: auto;
-            #logo {
-            transition: filter 0.3s ease;
+            transition: filter 0.3s ease; /* Smooth transition for the glow effect */
         }
 
         #logo:hover {
-            filter: brightness(135%);
+            filter: brightness(150%); /* Increase brightness by 150% on hover */
         }
-        .logo-link {
-            text-decoration: none; /* Removes underline */
-        }
-        .logo-link img {
-            border: 0; /* Removes border around clickable images in some browsers */
-        }
-}
-    </style>    
+    </style>   
 </head>
 <body>
-    <a href="https://www.retvrn.world" class="logo-link" target="_blank">
-        <img src="nickstumphauzer_1/Desktop/ESCAPE-PROGRESS/retvrn inc grey.png" alt="Logo">
-    </a>
     <div class="container">
         <div class="launch-info">
             <p class="launch-text estimated-launch-text">
@@ -186,7 +175,9 @@
         </div>
     </div>
 
-    <img src="retvrn inc grey.png" alt="Retvrn Inc Logo" id="logo">
+    <a href="https://www.retvrn.world" target="_blank">
+        <img src="retvrn inc grey.png" alt="Retvrn Inc Logo" id="logo">
+    </a>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DS-Digital">
     <script>
