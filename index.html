@@ -130,13 +130,11 @@
         }
     
         #logo {
-            position: fixed;
-            left: 50%;
-            bottom: 40px;
-            transform: translateX(-50%);
             max-width: 150px;
             height: auto;
             transition: filter 0.3s ease; /* Smooth transition for the glow effect */
+            display: block;
+            margin: 0 auto; /* Center the logo */
         }
 
         #logo:hover {
@@ -163,17 +161,6 @@
             <div class="progress-bar" id="progress-container">
                 <div class="progress" id="progress"></div>
             </div>
-        </div>
-    </div>
-
-    <div class="task-container">
-        <ul id="task-list" class="task-list">
-            <!-- Task items will be added dynamically here -->
-        </ul>
-        <div>
-            <input type="text" id="task-input" placeholder="Add a new task" onkeyup="addTaskOnEnter(event)">
-            <input type="number" id="estimated-hours" placeholder="Est. Hours" onkeyup="addTaskOnEnter(event)">
-            <p class="instruction-text">Press Enter to add task</p>
         </div>
     </div>
 
