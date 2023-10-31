@@ -44,23 +44,23 @@
    /* Define keyframes for the pulsing border */
 @keyframes pulseBorder {
     0%, 100% {
-        box-shadow: 0 0 5px var(--glow-color);
+        box-shadow: 0 0 2px var(--glow-color);
     }
     25% {
-        box-shadow: 0 0 10px var(--glow-color), inset 0 0 15px var(--glow-color);
+        box-shadow: 0 0 5px var(--glow-color), inset 0 0 15px var(--glow-color);
     }
     50% {
-        box-shadow: 0 0 5px var(--glow-color);
+        box-shadow: 0 0 2px var(--glow-color);
     }
     75% {
-        box-shadow: 0 0 10px var(--glow-color), inset 0 0 15px var(--glow-color);
+        box-shadow: 0 0 5px var(--glow-color), inset 0 0 15px var(--glow-color);
     }
 }
 
 /* Apply the animation to the .container class */
 .container {
     /* ... other properties ... */
-    animation: pulseBorder 5s linear infinite;
+    animation: pulseBorder 10s linear infinite;
 }
 
         .progress-container, .launch-info {
