@@ -7,7 +7,7 @@
     <style>
         :root {
             --background-color: black;
-            --text-color: rgb(202, 69, 255); /* Text color */
+            --text-color: rgb(222, 138, 255); /* Text color */
             --primary-color: #00b7ff; /* Neon blue */
             --secondary-color: #ccc;
             --red-color: rgb(255, 255, 255);
@@ -29,25 +29,24 @@
             text-shadow: var(--text-color) var(--glow-strength); /* Glow effect using text color */
         }
     
-        .container {
-    background-color: #333;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    width: 600px;
-    margin-bottom: 20px;
-    text-align: center;
-    border: 2px solid #00b7ff;
-    box-shadow: var(--glow-color) var(--glow-strength); /* Add this line for glow effect */
-    animation: pulse 5s infinite;
-}
+        .container, .task-container {
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 600px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #00b7ff;
+            box-shadow: var(--glow-color) var(--glow-strength);
+            animation: pulse 2s infinite; /* Add this line for glow effect */
         }
-    
+    /*
         .task-container {
             height: 442px;
             overflow-y: auto;
         }
-    
+    */
         .progress-container, .launch-info {
             display: flex;
             align-items: center;
